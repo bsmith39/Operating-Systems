@@ -5,19 +5,22 @@
 int main (int argc, char ** argv) {
 	int i = 1;
 	while (argv[i] != NULL){
+		int check = 0;
 		FILE *fp = fopen(argv[i], "r");
-		char buffer[255];
-		char *g = fgets(buffer, 255, fp);
-		if (g != NULL){
+		char buffer[500];
+		
+		char *g = fgets(buffer, 500, fp);
+		
+		while (g != NULL){
 			printf("%s", buffer);
-			fclose(fp);
-		}else{
-			if (i == 1){
-				exit(0);
-			}
-			exit(1);
+			g = fgets(buffer, 500, fp);
+			check = 1;
 		}
-		i = i+1;
+		fclose(fp);
+		if (check == 0){
+			exit(0);
+		}
+		i = i + 1;
 	}
 	return 0;
 }
